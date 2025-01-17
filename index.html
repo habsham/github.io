@@ -15,12 +15,12 @@ document.getElementById('birthdayForm').addEventListener('submit', function(e) {
       resultsDiv.innerHTML = `
         <p>Date of Birth: ${data.dateOfBirth}</p>
         <p>Today's Date: ${data.todayDate}</p>
-        <p>Current Day Number: ${data.currentDayNumber}</p>
-        <p>Birthdays Celebrated: ${data.birthdaysCelebrated}</p>
-        <p>Days Since Last Birthday: ${data.daysSinceLastBirthday}</p>
-        <p>Current Age: ${data.currentAge}</p>
-        <p>Current Life Day Number: ${data.currentLifeDayNumber}</p>
-        <p>Days Until Next Birthday: ${data.daysUntilNextBirthday}</p>
+        <p>Current Day Number of the Year: ${data.currentDayNumber}</p>
+        <p>Number of Birthdays Celebrated: ${data.birthdaysCelebrated}</p>
+        <p>Number of Days Since Last Birthday: ${data.daysSinceLastBirthday}</p>
+        <p>Currently Living Life at Age: ${data.currentAge}</p>
+        <p>Currently Living Life at Day Number: ${data.currentLifeDayNumber}</p>
+        <p>Remaining Days Until Next Birthday: ${data.daysUntilNextBirthday}</p>
       `;
     })
     .catch(error => console.error('Error:', error));
