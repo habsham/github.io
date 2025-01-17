@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Sheet Calculator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Google Sheet Calculator</h1>
+    <form id="calculatorForm">
+        <input type="text" name="B1" placeholder="Enter value for B1">
+        <input type="text" name="B2" placeholder="Enter value for B2">
+        <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+    $(document).ready(function() {
+        $('#calculatorForm').submit(function(e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                url: 'https://script.google.com/macros/s/AKfycbxdRRgorsWKtNLB3jodGTQxHr7Bugjx5l_O8C5G8ff25kYqdS7FSQUT8ytnfVrHfwCk/exec',
+                type: 'GET',
+                data: formData,
+                success: function(response) {
+                    $('#result').text('Result: ' + response.result);
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>
