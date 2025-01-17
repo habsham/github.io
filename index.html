@@ -1,33 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Google Sheet Calculator</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
-<body>
-    <h1>Google Sheet Calculator</h1>
-    <form id="calculatorForm">
-        <input type="text" name="B1" placeholder="Enter value for B1">
-        <input type="text" name="B2" placeholder="Enter value for B2">
-        <button type="submit">Calculate</button>
-    </form>
-    <div id="result"></div>
+<form id="birthdayForm">
+  <input type="date" name="dateOfBirth" required>
+  <button type="submit">Calculate</button>
+</form>
+<div id="results"></div>
 
-    <script>
-    $(document).ready(function() {
-        $('#calculatorForm').submit(function(e) {
-            e.preventDefault();
-            var formData = $(this).serialize();
-            $.ajax({
-                url: 'https://script.google.com/macros/s/AKfycbxdRRgorsWKtNLB3jodGTQxHr7Bugjx5l_O8C5G8ff25kYqdS7FSQUT8ytnfVrHfwCk/exec',
-                type: 'GET',
-                data: formData,
-                success: function(response) {
-                    $('#result').text('Result: ' + response.result);
-                }
-            });
-        });
-    });
-    </script>
-</body>
-</html>
+<script>
+document.getElementById('birthdayForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var dateOfBirth = this.elements.dateOfBirth.value;
+  fetch('https://script.google.com/macros/s/AKfycbzu26aXfRAo2ov073glT7J8LRhvOXX8cStSTU_kIasMsPSLW6lpgC1tnu7wpAmE7Jdn/exec?dateOfBirth=' + encodeURIComponent(dateOfBirth))
+    .then(response => response.json())
+    .then(data => {
+      var resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = `
+        <p>Date of Birth: ${data.dateOfBirth}</p>
+        <p>Today's Date: ${data.todayDate}</p>
+        <p>Current Day Number: ${data.currentDayNumber}</p>
+        <p>Birthdays Celebrated: ${data.birthdaysCelebrated}</p>
+        <p>Days Since Last Birthday: ${data.daysSinceLastBirthday}</p>
+        <p>Current Age: ${data.currentAge}</p>
+        <p>Current Life Day Number: ${data.currentLifeDayNumber}</p>
+        <p>Days Until Next Birthday: ${data.daysUntilNextBirthday}</p>
+      `;
+    })
+    .catch(error => console.error('Error:', error));
+});
+</script>
